@@ -1,4 +1,5 @@
 import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
@@ -12,6 +13,8 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,7 +29,13 @@ public class SentimentAnalysis {
             Configuration configuration = context.getConfiguration();
             String dicName = configuration.get("dictionary", "");
 
-            BufferedReader br = new BufferedReader(new FileReader(dicName));
+//            BufferedReader br = new BufferedReader(new FileReader(dicName));
+            FileSystem fs = null;
+            // BufferedReader br = new BufferedReader(new FileReader(path));
+            Path pt = new Path(dicName);//Location of file in HDFS
+            fs = FileSystem.get(new Configuration());
+            //FileSystem fs = FileSystem.get(new URI("hdfs://172.18.0.2:8032"),new Configuration());
+            BufferedReader br=new BufferedReader(new InputStreamReader(fs.open(pt)));
             String line = br.readLine();
 
             while (line != null) {
