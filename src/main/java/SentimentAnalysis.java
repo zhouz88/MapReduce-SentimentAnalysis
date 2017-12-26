@@ -1,7 +1,5 @@
 
 import org.apache.hadoop.conf.Configuration;
-import org.apache.hadoop.fs.FSDataInputStream;
-import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.LongWritable;
@@ -14,8 +12,6 @@ import org.apache.hadoop.mapreduce.lib.input.FileSplit;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
 import java.io.*;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,17 +22,7 @@ public class SentimentAnalysis {
         protected void setup(Context context) throws IOException, InterruptedException {
             Configuration conf = context.getConfiguration();
             String path = conf.get("path", "");
-            FileSystem fs = null;
-            try {
-                fs = FileSystem.get(new URI("hdfs://localhost:9000"), conf);
-                //基于uri和conf创建文件系统对象
-            } catch (URISyntaxException e) {
-                e.printStackTrace();
-            }
-            Path file = new Path(path);
-            FSDataInputStream getIt = fs.open(file);
-            BufferedReader br = new BufferedReader(new InputStreamReader(getIt));
-
+            BufferedReader br = new BufferedReader(new FileReader(path));
             String content = br.readLine();
             while (content != null) {
                 String[] s = content.split("\t");
