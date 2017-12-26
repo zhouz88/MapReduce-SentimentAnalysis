@@ -9,7 +9,7 @@ public class Driver {
         String JSONoutput = args[3];
 
         String[] args0 = {input, output, dictionary};
-        String[] args1 = {output, JSONoutput};
+        String[] args1 = {output+"/part-r-00000", JSONoutput};
         sentimentanalysis.main(args0);
         jsonConverter.main(args1);
     }
