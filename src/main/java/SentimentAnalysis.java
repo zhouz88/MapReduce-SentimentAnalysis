@@ -31,7 +31,7 @@ public class SentimentAnalysis {
         public void setup(Context context) throws IOException{
             Configuration configuration = context.getConfiguration();
             String dicName = configuration.get("dictionary", "");
-
+           //BufferedReader br = new BufferedReader(new FileReader(dicName));
             FileSystem fs = null;
             Path pt = new Path(dicName);//Location of file in HDFS
             fs = FileSystem.get(new Configuration());
