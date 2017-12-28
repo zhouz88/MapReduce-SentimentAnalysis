@@ -33,8 +33,8 @@ public class JSONConverter {
         /*
         BufferedReader br = new BufferedReader(new FileReader(args[0]));
         */
-        Path pt = new Path(args[1]);//Location of file in HDFS
-        Path end = new Path(args[3]);
+        Path pt = new Path(args[0]);//Location of file in HDFS
+        Path end = new Path(args[1]);
         FileSystem fs = FileSystem.get(new Configuration());
         BufferedReader br = new BufferedReader(new InputStreamReader(fs.open(pt)));
         
