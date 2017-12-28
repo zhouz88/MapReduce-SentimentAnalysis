@@ -28,15 +28,17 @@ public class SentimentAnalysis {
         public Map<String, String> emotionDic = new HashMap<String, String>();
 
         @Override
-        public void setup(Context context) throws IOException{
+        public void setup(Context context) throws Exception, IOException{
             Configuration configuration = context.getConfiguration();
             String dicName = configuration.get("dictionary", "");
            //BufferedReader br = new BufferedReader(new FileReader(dicName));
-            FileSystem fs = null;
-            Path pt = new Path(dicName);//Location of file in HDFS
-            fs = FileSystem.get(new Configuration());
+            //FileSystem fs = null;
+            //Path pt = new Path(dicName);//Location of file in HDFS
+            //fs = FileSystem.get(new Configuration());
+            //BufferedReader br = new BufferedReader(new InputStreamReader(fs.open(pt)));
+            Path pt = new Path("hdfs:/path/to/file");//Location of file in HDFS
+            FileSystem fs = FileSystem.get(new Configuration());
             BufferedReader br = new BufferedReader(new InputStreamReader(fs.open(pt)));
-
             String line = br.readLine();
             while (line != null) {
                 String[] word_feeling = line.split("\t");
