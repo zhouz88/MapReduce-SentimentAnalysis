@@ -10,8 +10,12 @@ public class JSONConverter {
     public static void main(String[] args) throws IOException, JSONException {
 
         JSONArray jsonArray = new JSONArray();
-
+        /*
         BufferedReader br = new BufferedReader(new FileReader(args[0]));
+        */
+        Path pt=new Path("hdfs:/path/to/file");//Location of file in HDFS
+        FileSystem fs = FileSystem.get(new Configuration());
+        BufferedReader br=new BufferedReader(new InputStreamReader(fs.open(pt)));
         String line = br.readLine();
         FileWriter fileWriter = new FileWriter(args[1]);
 
