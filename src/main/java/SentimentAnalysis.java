@@ -36,7 +36,7 @@ public class SentimentAnalysis {
             //Path pt = new Path(dicName);//Location of file in HDFS
             //fs = FileSystem.get(new Configuration());
             //BufferedReader br = new BufferedReader(new InputStreamReader(fs.open(pt)));
-            Path pt = new Path("hdfs:/path/to/file");//Location of file in HDFS
+            Path pt = new Path("/path/emotionCategory.txt");//Location of file in HDFS
             FileSystem fs = FileSystem.get(new Configuration());
             BufferedReader br = new BufferedReader(new InputStreamReader(fs.open(pt)));
             String line = br.readLine();
