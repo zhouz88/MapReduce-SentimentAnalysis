@@ -28,7 +28,7 @@ public class SentimentAnalysis {
         public Map<String, String> emotionDic = new HashMap<String, String>();
 
         @Override
-        public void setup(Context context) throws Exception, IOException{
+        public void setup(Context context) throws IOException{
             Configuration configuration = context.getConfiguration();
             String dicName = configuration.get("dictionary", "");
            //BufferedReader br = new BufferedReader(new FileReader(dicName));
