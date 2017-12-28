@@ -2,6 +2,26 @@
 import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
+import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.fs.FileSystem;
+import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.io.IntWritable;
+import org.apache.hadoop.io.Text;
+import org.apache.hadoop.mapreduce.Job;
+import org.apache.hadoop.mapreduce.Mapper;
+import org.apache.hadoop.mapreduce.Reducer;
+import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
+import org.apache.hadoop.mapreduce.lib.input.FileSplit;
+import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.HashMap;
+import java.util.Map;
 
 import java.io.*;
 
@@ -13,14 +33,14 @@ public class JSONConverter {
         /*
         BufferedReader br = new BufferedReader(new FileReader(args[0]));
         */
-        Path pt=new Path("hdfs:/path/to/file");//Location of file in HDFS
+        Path pt = new Path(args[1]);//Location of file in HDFS
+        Path end = new Path(args[3]);
         FileSystem fs = FileSystem.get(new Configuration());
-        BufferedReader br=new BufferedReader(new InputStreamReader(fs.open(pt)));
+        BufferedReader br = new BufferedReader(new InputStreamReader(fs.open(pt)));
+        
         String line = br.readLine();
-        FileWriter fileWriter = new FileWriter(args[1]);
-
-        BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-
+        BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(fs.open(end)));
+        
         while (line != null) {
             JSONObject article = new JSONObject();
             String[] title_emotion_count = line.split("\t");
