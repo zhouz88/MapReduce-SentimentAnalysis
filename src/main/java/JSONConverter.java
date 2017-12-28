@@ -39,8 +39,12 @@ public class JSONConverter {
         BufferedReader br = new BufferedReader(new InputStreamReader(fs.open(pt)));
         
         String line = br.readLine();
-        BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(fs.open(end)));
-        
+  //      BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(fs.open(end)));
+
+    FSDataOutputStream outStream = fs.create(file);
+   //outStream.writeUTF("Welcome to HDFS Java API!!!");  
+    //outStream.close();  
+
         while (line != null) {
             JSONObject article = new JSONObject();
             String[] title_emotion_count = line.split("\t");
@@ -59,10 +63,14 @@ public class JSONConverter {
             line = br.readLine();
         }
 
-        bufferedWriter.write(jsonArray.toString());
-
+       // bufferedWriter.write(jsonArray.toString());
+         outStream.writeUTF(jsonArray.toString());
+//    outStream.close()
         br.close();
-        bufferedWriter.close();
+       // bufferedWriter.close();
+outStream.close();
+
 
     }
 }
+              
