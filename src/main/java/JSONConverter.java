@@ -41,7 +41,7 @@ public class JSONConverter {
         String line = br.readLine();
   //      BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(fs.open(end)));
 
-    FSDataOutputStream outStream = fs.create(file);
+    FSDataOutputStream outStream = fs.create(end);
    //outStream.writeUTF("Welcome to HDFS Java API!!!");  
     //outStream.close();  
 
